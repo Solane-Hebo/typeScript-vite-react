@@ -1,7 +1,10 @@
-import { BrowserRouter, Link } from "react-router-dom";
+import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import { useRepo } from "./repo";
 import { useEffect } from "react";
 import type { QNAThread, Thread } from "./types";
+import { AuthWidget, useSession } from "./auth";
+import ListeRoute from "./routes/ListRoute";
+import ListRoute from "./routes/ListRoute";
 
 
 export default function App() {
@@ -14,22 +17,24 @@ export default function App() {
 
 function Shell() {
   const repo = useRepo();
-  // const { currentUser, setCurrentUser } = useSession();
 
+  const {currentUser, setCurrentUser} = useSession()
+
+  // demo-data
   useEffect(() => {
     if (repo.state.users.length === 0) {
-      const alice = repo.actions.register("alice", "pass");
+      const Jone = repo.actions.register("Jone", "pass");
       const bob = repo.actions.register("bob", "pass");
 
       const t1 = repo.actions.createThread({
         title: "Välkommen!",
         category: "THREAD",
         description: "Presentera dig här.",
-        creator: alice,
+        creator: Jone,
       } as Omit<Thread, "id" | "creationDate">);
 
       const qna = repo.actions.createThread({
-        title: "Hur gör jag X i TypeScript?",
+        title: "Utility types",
         category: "QNA",
         description: "Tips på utility types?",
         creator: bob,
@@ -41,13 +46,20 @@ function Shell() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900">
-      <header className="sticky top-0 z-10 bg-white border-b">
+    <div className="min-h-screen bg-gray-800 text-white">
+      <header className="sticky top-0 z-10 bg-gray-950 border-b">
         <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
           <Link to="/" className="text-2xl font-bold">Forum</Link>
-          {/* <AuthWidget repo={repo} currentUser={currentUser} setCurrentUser={setCurrentUser} /> */}
+          <AuthWidget repo={repo} currentUser={currentUser} setCurrentUser={setCurrentUser} />
         </div>
       </header>
+
+      <main>
+        <Routes>
+           <Route path="/" element={
+            <ListRoute threads={repo.state.threads}/> }/>
+        </Routes>
+      </main>
     </div>
   );
 }

@@ -50,9 +50,6 @@ const createThread = (
        return t
 }
 
-
-
-
 return {
     state: {users, threads, comments, seq},
     actions: { createThread, register, login }

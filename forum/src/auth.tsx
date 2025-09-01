@@ -4,7 +4,8 @@ import { LS_KEYS, readLS, writeLS } from "./storage";
 import { useRepo } from "./repo";
 
 export function useSession() {
-  const [currentUser, setCurrentUser] = useState<User | null>(() => readLS<User | null>(LS_KEYS.session, null));
+  const [currentUser, setCurrentUser] = useState<User | null>(() => 
+    readLS<User | null>(LS_KEYS.session, null));
   useEffect(() => writeLS(LS_KEYS.session, currentUser), [currentUser]);
   return { currentUser, setCurrentUser };
 }
