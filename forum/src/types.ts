@@ -4,6 +4,9 @@ export type User = {
     userName: string
     password: string
 }
+export type RegisterUser = User & {
+    confirmPassword: string;
+  }
 
 export type Thread = {
     id: number
