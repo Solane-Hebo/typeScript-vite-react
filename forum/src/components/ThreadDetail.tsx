@@ -1,14 +1,4 @@
-<<<<<<< HEAD
-import type { useRepo } from "../repo";
-import type { QNAThread, Thread, User } from "../types";
-
-export default function ThreadDetail({
-    thread,
-    //comments,
-    // currentUser,
-    // repo,
-=======
-import React, { useState } from "react";
+import { useState } from "react";
 import type { useRepo } from "../repo";
 import type { QNAThread, Thread, User, Comment } from "../types";
 
@@ -16,17 +6,12 @@ export default function ThreadDetail({
     thread,
      currentUser,
      repo,
->>>>>>> origin/main
 }: {
     thread: Thread | QNAThread
-   //comment 
    currentUser: User | null
    repo: ReturnType<typeof useRepo>
 
 }) {
-<<<<<<< HEAD
-    const isQNA = thread.category === "QNA"
-=======
 
     const [newComment, setNewComment] = useState("");
 
@@ -48,7 +33,6 @@ export default function ThreadDetail({
 
 
     const isQNA = (thread as QNAThread).category === "QNA";
->>>>>>> origin/main
     const qna = isQNA ? (thread as QNAThread) : null
 
     return (
@@ -67,9 +51,6 @@ export default function ThreadDetail({
                     {thread.description }
                 </p>
             </div>
-<<<<<<< HEAD
-            {/* Todo Add Comments and functions commentItem and commentform*/}
-=======
 
             {/* Todo Add Comments and functions commentItem and commentform*/}
             <div className="rounded-2xl border bg-white p-4 shadow-sm">
@@ -106,7 +87,6 @@ export default function ThreadDetail({
                     </div>
                  )}
             </div>
->>>>>>> origin/main
         </div>
     )
 }
