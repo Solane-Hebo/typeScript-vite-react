@@ -61,10 +61,13 @@ const addComment = (threadId: number, content: string, creator: User): Comment =
     setSeq({ ...seq }); 
     return comment;
 };
-
+ 
+const updateThread = (updated: Thread | QNAThread) => {
+    setThreads((prev) => prev.map((t) => (t.id === updated.id ? updated : t )))
+}
 
 return {
     state: {users, threads, comments, seq},
-    actions: { createThread, register, login, addComment }
+    actions: { createThread, register, login, addComment, updateThread }
 } as const
 }

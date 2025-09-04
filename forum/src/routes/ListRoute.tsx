@@ -1,8 +1,10 @@
 import { useMemo, useState } from "react";
 import ThreadList from "../components/threadList";
-import type { QNAThread, Thread } from "../types";
+import type { QNAThread, Thread, Comment } from "../types";
 
-export default function ListRoute({ threads }: {threads: Array<Thread | QNAThread>}) {
+export default function ListRoute({ threads, comments }: {threads: Array<Thread | QNAThread> 
+    comments: Comment[]
+}) {
     const params = new URLSearchParams(location.search)
      const initialQ = params.get("q") ?? ""
 
@@ -22,7 +24,9 @@ export default function ListRoute({ threads }: {threads: Array<Thread | QNAThrea
     
     return (
     <>
-    <ThreadList threads={filtered} />
+
+    <ThreadList threads={filtered} comments={comments}/>
+
     </>
 )
 }
