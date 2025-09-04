@@ -50,8 +50,21 @@ const createThread = (
        return t
 }
 
+const addComment = (threadId: number, content: string, creator: User): Comment => {
+    const comment: Comment = {
+        id: seq.comment++,  
+        thread: threadId,
+        content,
+        creator
+    };
+    setComments((prev) => [comment, ...prev]);
+    setSeq({ ...seq }); 
+    return comment;
+};
+
+
 return {
     state: {users, threads, comments, seq},
-    actions: { createThread, register, login }
+    actions: { createThread, register, login, addComment }
 } as const
 }
