@@ -1,8 +1,10 @@
 import { useMemo, useState } from "react";
 import ThreadList from "../components/threadList";
-import type { QNAThread, Thread } from "../types";
+import type { QNAThread, Thread, Comment } from "../types";
 
-export default function ListRoute({ threads }: {threads: Array<Thread | QNAThread>}) {
+export default function ListRoute({ threads, comments }: {threads: Array<Thread | QNAThread> 
+    comments: Comment[]
+}) {
     const params = new URLSearchParams(location.search)
      const initialQ = params.get("q") ?? ""
 
@@ -21,15 +23,8 @@ export default function ListRoute({ threads }: {threads: Array<Thread | QNAThrea
 
     
     return (
-        <>
-    <div className="flex items-center gap-2 mb-4">
-        <input 
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Sök trådar..." className="px-3 py-2 rounded-xl border w-64"
-        />
-    </div>
-    <ThreadList threads={filtered} />
+    <>
+    <ThreadList threads={filtered} comments={comments}/>
     </>
 )
 }
