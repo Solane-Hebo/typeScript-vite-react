@@ -12,12 +12,12 @@ export default function ThreadList({
   threads: Array<Thread | QNAThread>;
 }) {
   return (
-    <div className="grid md:grid-cols-2 gap-4">
+    <div className="grid md:grid-cols-2 gap-4 mt-9">
       {threads.map((t) => (
         <Link key={t.id} to={`/thread/${t.id}`} className="block">
           <article className="rounded-2xl border bg-white p-4 shadow-sm hover:shadow">
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold">{t.title}</h3>
+              <h3 className="text-lg font-semibold text-gray-600">{t.title}</h3>
               <span
                 className={clsx(
                   "text-xs px-2 py-0.5 rounded-full border",

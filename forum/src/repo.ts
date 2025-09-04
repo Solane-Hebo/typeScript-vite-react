@@ -42,7 +42,7 @@ const createThread = (
         description: input.description,
         creator: input.creator,
     }
-    setSeq(seq)
+    setSeq({...seq})
 
     const t: Thread | QNAThread = 
         input.category === "QNA" ? ({...base, category: "QNA", isAnswered: false} as QNAThread) :base

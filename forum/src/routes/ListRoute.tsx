@@ -21,14 +21,7 @@ export default function ListRoute({ threads }: {threads: Array<Thread | QNAThrea
 
     
     return (
-        <>
-    <div className="flex items-center gap-2 mb-4">
-        <input 
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Sök trådar..." className="px-3 py-2 rounded-xl border w-64"
-        />
-    </div>
+    <>
     <ThreadList threads={filtered} />
     </>
 )
