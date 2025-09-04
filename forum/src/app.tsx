@@ -13,8 +13,9 @@ function RouteAwareSearch() {
   const [] = React.useState("");
   return (
     <div className="flex items-center gap-2">  
-      <Link className="px-3 py-2 rounded-xl border hover:bg-gray-700" to="/new">
-        Ny tråd
+
+      <Link className="px-3 py-2 rounded-xl border hover:bg-gray-100" to="/new">
+        Skapa Ny Tråd
       </Link>
     </div>
   );
@@ -72,6 +73,11 @@ function Shell() {
                  onClick={() => setCurrentUser(null)}
                 >Logga ut</button>
             </div>
+
+          <Link to="/" className="py-2 wrapper text-4xl bg-clip-text text-transparent font-extrabold bg-gradient-to-r from-purple-500 via-sky-400 to-sky-50">S&M Forum</Link>
+           <RouteAwareSearch />
+          {currentUser ? (
+            <span> HEJ! <b>{currentUser.userName}</b></span>
           ) : (
             <div className="flex gap-3">
               <Link to="/login" className="px-3 py-1.5 border rounded-xl hover:bg-gray-700">Logga in</Link>

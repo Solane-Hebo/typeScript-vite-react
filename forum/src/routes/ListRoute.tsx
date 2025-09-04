@@ -24,7 +24,9 @@ export default function ListRoute({ threads, comments }: {threads: Array<Thread 
     
     return (
     <>
+
     <ThreadList threads={filtered} comments={comments}/>
+
     </>
 )
 }

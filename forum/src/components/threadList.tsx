@@ -14,6 +14,7 @@ export default function ThreadList({
   comments: Comment[];
 }) {
   return (
+
     <div className="grid md:grid-cols-2 gap-4">
       {threads.map((t) => {
         const commentCount = comments.filter((c) => c.thread === t.id).length;
@@ -50,6 +51,7 @@ export default function ThreadList({
           </Link>
         );
       })}
+
     </div>
   );
 }

@@ -1,4 +1,7 @@
+feature
 import React, { useState } from "react";
+import { useState } from "react";
+
 import type { useRepo } from "../repo";
 import type { QNAThread, Thread, User, Comment } from "../types";
 import { MessageCircle } from "lucide-react";
@@ -9,7 +12,6 @@ export default function ThreadDetail({
      repo,
 }: {
     thread: Thread | QNAThread
-   //comment 
    currentUser: User | null
    repo: ReturnType<typeof useRepo>
 
