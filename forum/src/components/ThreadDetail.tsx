@@ -97,7 +97,6 @@ const handleMarkAsAnswer = (commentId: number) => {
                                     <p className="text-sm text-gray-700">{c.content}</p>
                                     <span className="text-xs text-gray-500">{c.creator.userName}</span>
 
-                                    {/* Mark as Answer button */}
                                     {!isAnswer &&
                                         currentUser?.userName === thread.creator.userName &&
                                         isQNA && (
