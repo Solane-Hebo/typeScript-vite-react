@@ -1,7 +1,4 @@
-feature
-import React, { useState } from "react";
 import { useState } from "react";
-
 import type { useRepo } from "../repo";
 import type { QNAThread, Thread, User, Comment } from "../types";
 import { MessageCircle } from "lucide-react";
@@ -46,7 +43,15 @@ const handleMarkAsAnswer = (commentId: number) => {
     if(currentUser.userName !== thread.creator.userName) return
     if(!isQNA) return; 
 
-    const updatedThread: QNAThread = { ...qna!, isAnswered: true, commentAnswerId: commentId };
+//     repo.actions.updateThread({
+//         ...thread,
+//         isAnswered: true,
+//         commentAnswerId: commentId,
+    
+//     } as QNAThread)
+// }
+
+    const updatedThread: QNAThread = { ...qna!, isAnswered: true, commentAnswerId: commentId, };
     repo.actions.updateThread(updatedThread);
 };
 
@@ -57,8 +62,17 @@ const handleMarkAsAnswer = (commentId: number) => {
             <div className="rounded-2xl border bg-white p-4 shadow-sm">
                 <h2 className="text-2xl font-bold text-gray-600 flex items-center gap-2">
                     {thread.title}
+                    <span
+                        className={`text-xs px-2 py-0.5 rounded-full border
+                        ${thread.category === "THREAD" ? "bg-blue-50 text-blue-700 border-blue-200" : ""}
+                        ${thread.category === "QNA" ? "bg-emerald-50 text-emerald-700 border-emerald-200" : ""}
+                        `}
+                    >
+                        {thread.category}
+                    </span>
+
                     {isQNA && qna?.isAnswered && (
-                        <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-800">Besvarad</span>
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-800 text-white">Besvarad</span>
                     )}
                 </h2>
                 <div className="text-xs text-gray-600 mt-1">
@@ -79,7 +93,7 @@ const handleMarkAsAnswer = (commentId: number) => {
                     <p className="text-sm text-gray-500">Inga kommentarer än.</p>
                 ): (
 
-                    <ul className="space-y-3">
+                 <ul className="space-y-3">
                     {comments.map((c: Comment) => {
                         const isAnswer = qna?.commentAnswerId === c.id;
                         return (
@@ -95,14 +109,14 @@ const handleMarkAsAnswer = (commentId: number) => {
                                     }`}
                                 >
                                     <p className="text-sm text-gray-700">{c.content}</p>
-                                    <span className="text-xs text-gray-500">{c.creator.userName}</span>
+                                    <span className="text-xs text-gray-500 ">{c.creator.userName}</span>
 
                                     {!isAnswer &&
                                         currentUser?.userName === thread.creator.userName &&
                                         isQNA && (
                                             <button
                                                 onClick={() => handleMarkAsAnswer(c.id)}
-                                                className="mt-2 text-xs text-blue-600 hover:underline"
+                                                className="mt-2 text-xs text-blue-600 hover:underline pl-4"
                                             >
                                                 Markera som svar
                                             </button>

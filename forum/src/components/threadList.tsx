@@ -1,6 +1,6 @@
 import { type QNAThread, type Thread, type Comment } from "../types";
 import { Link } from "react-router-dom";
-import { MessageCircle } from "lucide-react";
+import { CheckCircle2, MessageCircle } from "lucide-react";
 
 function clsx(...parts: Array<string | false | null | undefined>) {
   return parts.filter(Boolean).join(" ");
@@ -19,33 +19,47 @@ export default function ThreadList({
       {threads.map((t) => {
         const commentCount = comments.filter((c) => c.thread === t.id).length;
 
+        const isQNA = t.category === "QNA";
+        const isAnswered = isQNA && ( t as QNAThread).isAnswered;
+
         return (
           <Link key={t.id} to={`/thread/${t.id}`} className="block">
-            <article className="rounded-2xl border bg-white p-4 shadow-sm hover:shadow">
+            <article className={clsx("rounded-2xl border bg-white p-4 shadow-sm hover:shadow", 
+              isAnswered && "border-emerald-400 bg-emerald-50"
+            )}
+            >
               <div className="flex items-center justify-between">
                 <h3 className="text-lg font-semibold text-gray-600">{t.title}</h3>
-                <span
-                  className={clsx(
-                    "text-xs px-2 py-0.5 rounded-full border",
-                    t.category === "THREAD" &&
-                      "bg-blue-50 text-blue-700 border-blue-200",
-                    t.category === "QNA" &&
-                      "bg-emerald-50 text-emerald-700 border-emerald-200"
+
+                  <span
+                    className={clsx(
+                      "text-xs px-2 py-0.5 rounded-full border",
+                      t.category === "THREAD" &&
+                        "bg-blue-50 text-blue-700 border-blue-200",
+                      t.category === "QNA" &&
+                        "bg-emerald-50 text-emerald-700 border-emerald-200"
+                    )}
+                  >
+                    {t.category}
+                  </span>
+                  {isAnswered && (
+                    <span className="flex items-center text-emerald-700 text-xs font-medium">
+                      <CheckCircle2 size={14} className="mr-1" />
+                        Besvarad
+                    </span>
                   )}
-                >
-                  {t.category}
-                </span>
-              </div>
-              <p className="text-sm mt-1 line-clamp-2">{t.description}</p>
-              <div className="mt-3 text-xs text-gray-500 flex justify-between items-center">
-                <span>
-                  Skapad {new Date(t.creationDate).toLocaleString()} av{" "}
-                  {t.creator.userName}
-                </span>
-                <span className="flex items-center gap-1 text-gray-600">
-                  <MessageCircle size={14} />
-                  {commentCount}
-                </span>
+                </div>
+           
+                <p className="text-sm mt-1 line-clamp-2">{t.description}</p>
+                <div className="mt-3 text-xs text-gray-500 flex justify-between items-center">
+                  <span>
+                    Skapad {new Date(t.creationDate).toLocaleString()} av{" "}
+                    {t.creator.userName}
+                  </span>
+                  <span className="flex items-center gap-1 text-gray-600">
+                    <MessageCircle size={14} />
+                    {commentCount}
+                  </span>
               </div>
             </article>
           </Link>

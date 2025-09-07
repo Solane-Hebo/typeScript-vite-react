@@ -52,8 +52,10 @@ export default function NewThreadForm({
                   title: title.trim(),
                   description: description.trim(),
                   creator: currentUser,
+                  category,
                   } as Omit<Thread, "id" | "creationDate">)
                   onCreated(created)  
+               
                 } catch (e: unknown) {
                   setError(e instanceof Error ? e.message : "Kunde inte skapa tråd")
                 }
