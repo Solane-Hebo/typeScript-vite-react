@@ -11,7 +11,7 @@ export function useRepo() {
 
         useEffect(() => writeLS(LS_KEYS.users, users), [users])
         useEffect(() => writeLS((LS_KEYS.threads), threads), [threads])
-        useEffect(() => writeLS((LS_KEYS.comments), threads), [comments])
+        useEffect(() => writeLS((LS_KEYS.comments), comments), [comments])
         useEffect(() => writeLS((LS_KEYS.seq),seq), [seq]) 
 
 
