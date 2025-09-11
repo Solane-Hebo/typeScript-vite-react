@@ -2,6 +2,7 @@ import { useState } from "react"
 import type { QNAThread, Thread, User, Comment } from "../types";
 import type { useRepo } from "../repo";
 import { Lock, MessageCircle, Unlock } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function ThreadDetail({
      thread,
@@ -13,7 +14,8 @@ export default function ThreadDetail({
    repo: ReturnType<typeof useRepo>
 
 }) {
-
+     
+    const navigate = useNavigate()
     const [newComment, setNewComment] = useState("");
 
     const comments = repo.state.comments.filter((c) => c.thread === thread.id )
@@ -68,7 +70,7 @@ const handleToggleLock = () => {
 
    
     return (
-        <div className="space-y-4 mt-9">
+        <div className="mx-auto w-full max-w-6xl px-4 md:px-6 py-8 space-y-6">
             <div className="rounded-2xl border bg-white p-4 shadow-sm">
                 <h2 className="text-2xl font-bold text-gray-600 flex items-center gap-2">
                     {thread.title}
@@ -164,6 +166,8 @@ const handleToggleLock = () => {
                           className="w-full border rounded p-2 text-sm text-black"
                           placeholder="Skriv en kommentar..."
                         />
+                        <div className="mt-2 flex gap-2">
+
                         <button 
                           onClick={handleAddComment}
                           className={`mt-2 px-3 py-1.5 text-white rounded ${
@@ -173,7 +177,13 @@ const handleToggleLock = () => {
                            >
                           Skicka
                         </button>
+                        <button className="mt-2 px-3 py-1.5 text-white rounded bg-blue-600 hover:bg-blue-700" onClick={() => navigate(-1)}>
+                              ← Tillbaka
+                        </button>
+                        </div>
+                        
                     </div>
+                    
                  )}
             </div>
         </div>

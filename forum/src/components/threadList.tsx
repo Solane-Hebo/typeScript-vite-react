@@ -14,16 +14,17 @@ export default function ThreadList({
   comments: Comment[];
 }) {
   return (
+    <div className="flex justify-center">
 
-    <div className="grid md:grid-cols-2 gap-4">
-      {threads.map((t) => {
-        const commentCount = comments.filter((c) => c.thread === t.id).length;
-
-        const isQNA = t.category === "QNA";
-        const isAnswered = isQNA && ( t as QNAThread).isAnswered;
-
-        return (
-          <Link key={t.id} to={`/thread/${t.id}`} className="block">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-7xl w-full p-6">
+        {threads.map((t) => {
+          const commentCount = comments.filter((c) => c.thread === t.id).length;
+  
+          const isQNA = t.category === "QNA";
+          const isAnswered = isQNA && ( t as QNAThread).isAnswered;
+          
+          return (
+            <Link key={t.id} to={`/thread/${t.id}`} className="block">
             <article className={clsx("rounded-2xl border bg-white p-4 shadow-sm hover:shadow", 
               isAnswered && "border-emerald-400 bg-emerald-50"
             )}
@@ -35,11 +36,11 @@ export default function ThreadList({
                     className={clsx(
                       "text-xs px-2 py-0.5 rounded-full border",
                       t.category === "THREAD" &&
-                        "bg-blue-50 text-blue-700 border-blue-200",
+                      "bg-blue-50 text-blue-700 border-blue-200",
                       t.category === "QNA" &&
-                        "bg-emerald-50 text-emerald-700 border-emerald-200"
+                      "bg-emerald-50 text-emerald-700 border-emerald-200"
                     )}
-                  >
+                    >
                     {t.category}
                   </span>
                   {isAnswered && (
@@ -65,6 +66,7 @@ export default function ThreadList({
           </Link>
         );
       })}
+      </div>
 
     </div>
   );
