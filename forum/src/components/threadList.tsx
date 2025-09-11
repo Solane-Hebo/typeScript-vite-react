@@ -51,7 +51,7 @@ export default function ThreadList({
                   )}
                 </div>
            
-                <p className="text-sm mt-1 line-clamp-2">{t.description}</p>
+                <p className="text-sm text-gray-800 mt-1 line-clamp-2">{t.description}</p>
                 <div className="mt-3 text-xs text-gray-500 flex justify-between items-center">
                   <span>
                     Skapad {new Date(t.creationDate).toLocaleString()} av{" "}

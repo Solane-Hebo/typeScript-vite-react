@@ -90,6 +90,9 @@ const handleToggleLock = () => {
                         <span className="text-xs px-2 py-0.5 rounded-full bg-gray-800 text-white">Låst</span>
                     )}
                 </h2>
+                    <p className="mt-3 text-gray-800">
+                        {thread.description }
+                    </p>
                 <div className="text-xs text-gray-600 mt-1">
                     Skapad {new Date(thread.creationDate).toLocaleString()} av {thread.creator.userName}
                 </div>
@@ -98,17 +101,14 @@ const handleToggleLock = () => {
                     <button 
                     onClick={handleToggleLock}
                     className={`inline-flex items-center gap-2 text-xs px-3 py-1.5 rounded border 
-                        ${isLocked ? "bg-gray-100 text-gray-800 border-gray-300" : "bg-red-50 text-red-700 border-red-200"}
+                        ${isLocked ? "bg-gray-100 p-2 text-gray-800 border-gray-300" : "bg-red-50 text-red-700 border-red-200"}
                         `}
                         title={isLocked ? "Lås upp tråd" : "Lås tråd"}
                         >
-                            {isLocked ? <Unlock size={14} /> : <Lock size={14} />}
+                            {isLocked ? <Unlock size={16} /> : <Lock size={16} />}
                             {isLocked ? "Los upp" : "Lås"}
                         </button>
                 )}
-                <p className="mt-3 text-gray-600">
-                    {thread.description }
-                </p>
             </div>
 
             <div className="rounded-2xl border bg-white p-4 shadow-sm">
