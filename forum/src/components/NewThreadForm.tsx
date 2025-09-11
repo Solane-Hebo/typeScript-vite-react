@@ -20,7 +20,8 @@ export default function NewThreadForm({
 
 
     return (
-      <div className="max-w-2xl">
+      <main className="w-full flex justify-center px-6 py-10">
+      <div className="max-w-4xl w-full">
          <h2 className="text-xl font-semibold mb-3">Skapa tråd</h2>
          <div className="space-y-3"></div>
            <div>
@@ -47,15 +48,15 @@ export default function NewThreadForm({
               onClick={() => {
                 try {
                   if (!title.trim()) throw new Error("Titel saknas")
-                  if (!description.trim()) throw new Error("Beskrivning saknas")
-                    const created = repo.actions.createThread({
-                  title: title.trim(),
-                  description: description.trim(),
-                  creator: currentUser,
-                  category,
+                    if (!description.trim()) throw new Error("Beskrivning saknas")
+                      const created = repo.actions.createThread({
+                    title: title.trim(),
+                    description: description.trim(),
+                    creator: currentUser,
+                    category,
                   } as Omit<Thread, "id" | "creationDate">)
                   onCreated(created)  
-               
+                  
                 } catch (e: unknown) {
                   setError(e instanceof Error ? e.message : "Kunde inte skapa tråd")
                 }
@@ -66,6 +67,7 @@ export default function NewThreadForm({
 
             </div>
       </div>
+    </main>
     )
 
 }
