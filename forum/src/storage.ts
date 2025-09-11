@@ -3,7 +3,8 @@ export const LS_KEYS = {
     threads: "forum.threads.v1",
     comments: "forum.comments.v1",
     seq: "forum.seq.v1",
-    session: "forum.session.v1"
+    session: "forum.session.v1",
+    currentUser: "forum.currentUser"
 } as const
 
 export type Sequences = { user: number, thread: number, comment: number}
