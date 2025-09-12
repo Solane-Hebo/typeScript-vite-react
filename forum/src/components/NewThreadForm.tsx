@@ -16,7 +16,13 @@ export default function NewThreadForm({
     const [description, setDescription] = useState("")
     const [error, setError] = useState<string |null>(null)
 
-  if (!currentUser) return <p>Du måste vara inloggad för att skapa en tråd.</p>;
+  if (!currentUser) return(
+     <div className="flex items-center justify-center min-h-screen">
+      <p className="text-2xl font-semibold text-gray-200 text-center">
+        Du måste vara inloggad för att skapa en tråd.
+      </p>
+    </div>
+  )
 
 
     return (
