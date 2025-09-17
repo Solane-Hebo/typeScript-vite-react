@@ -13,6 +13,8 @@ export default function NewThreadForm({
 }) {
     const [title, setTitle] = useState("")
     const [category, setCategory] = useState<ThreadCategory>("THREAD")
+    const [tags, setTags] = useState("")
+    const [link, setLink] = useState("")
     const [description, setDescription] = useState("")
     const [error, setError] = useState<string |null>(null)
 
@@ -39,39 +41,52 @@ export default function NewThreadForm({
              <select className="w-full border rounded-xl px-3 py-2 bg-white text-gray-900" value={category} onChange={(e) => setCategory(e.target.value as ThreadCategory)}>
                <option value="THREAD">THREAD (diskussion)</option>
                <option value="QNA">QNA (fråga/svar)</option>
+               <option value="AD">AD (Reklam)</option>
             </select>
             </div>
+            {category === "AD" && (
+            <div>
+             <label className="block text-sm mb-1 ">Länk (För reklam)</label>
+             <input className="w-full border rounded-xl px-3 py-2" value={link} onChange={(e) => setLink(e.target.value)} placeholder="https://..." />
+            </div>
+            )}
             <div>
               <label className="block text-sm mb-1">Beskrivning</label>
               <textarea className=" bg-white text-gray-900 w-full border rounded-xl px-3 py-2 min-h-[120px]" value={description} onChange={(e) => setDescription(e.target.value)} />
             </div>
 
+           <div>
+              <label className="block text-sm mb-1">Taggar (kommaseparerade)</label>
+              <input className="w-full border rounded-xl px-3 py-2" value={tags} onChange={(e) => setTags(e.target.value)} placeholder="typescript, qna" />
+           </div>
+
             {error && <div className="text-sm text-red-600">{error}</div>}
 
-            <div className="flex item-center-xl gap-2">
-              <button
-              className="px-3 py-2 rounded-xl border"
-              onClick={() => {
-                try {
-                  if (!title.trim()) throw new Error("Titel saknas")
-                    if (!description.trim()) throw new Error("Beskrivning saknas")
-                      const created = repo.actions.createThread({
-                    title: title.trim(),
-                    description: description.trim(),
-                    creator: currentUser,
-                    category,
-                  } as Omit<Thread, "id" | "creationDate">)
-                  onCreated(created)  
-                  
-                } catch (e: unknown) {
-                  setError(e instanceof Error ? e.message : "Kunde inte skapa tråd")
-                }
-              }}
-              >
-                Skapa
-              </button>
-
-            </div>
+         <div className="flex items-center gap-2">
+          <button
+            className="px-3 py-2 rounded-xl border"
+            onClick={() => {
+              try {
+                if (!title.trim()) throw new Error("Titel saknas");
+                if (!description.trim()) throw new Error("Beskrivning saknas");
+                const created = repo.actions.createThread({
+                  title: title.trim(),
+                  category,
+                  description: description.trim(),
+                  creator: currentUser,
+                  tags: tags.split(",").map((s) => s.trim()).filter(Boolean),
+                  ...(category === "AD" ? { link } : {}),
+                });
+                onCreated(created);
+              } catch (e: unknown) {
+                const msg = e instanceof Error ? e.message : "Kunde inte skapa tråd";
+                setError(msg);
+              }
+            }}
+          >
+            Skapa
+          </button>
+        </div>
       </div>
     </main>
     )

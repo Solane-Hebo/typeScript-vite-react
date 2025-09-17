@@ -10,8 +10,21 @@ export default function DetailRoute({
   repo: ReturnType<typeof useRepo>;
   currentUser: User | null;
 }) {
-  const { id } = useParams();
-  const thread = repo.state.threads.find((t) => t.id === Number(id));
-  if (!thread) return <p>Tråd saknas.</p>;
-  return <ThreadDetail thread={thread} currentUser={currentUser} repo={repo} />;
-}
+  const { id } = useParams<{id: string}>();
+  const routeId = String(id)
+  const thread = repo.state.threads.find((t) => String(t.id )=== routeId);
+  if (!thread) return <p className="min-h-screen text-lg font-semibold text-center p-6">Tråd saknas.</p>;
+
+  const comments = repo.state.comments.filter(
+    (c) => String(c.thread )=== String(thread.id)
+  )
+  
+  return (
+    <ThreadDetail 
+    thread={thread} 
+    comments={comments}
+    currentUser={currentUser} 
+    repo={repo} />
+  )
+  }
+  
